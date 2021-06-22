@@ -218,3 +218,5 @@ E:\Abrar Bahrain\exersise-app\App\obj\Debug\App.csproj.CoreCompileInputs.cache
 E:\Abrar Bahrain\exersise-app\App\obj\Debug\App.csproj.CopyComplete
 E:\Abrar Bahrain\exersise-app\App\obj\Debug\App.dll
 E:\Abrar Bahrain\exersise-app\App\obj\Debug\App.pdb
+E:\Abrar Bahrain\exersise-app\App\obj\Debug\App.Migrations.newtableadded.resources
+E:\Abrar Bahrain\exersise-app\App\obj\Debug\App.Migrations.stepstableadded.resources

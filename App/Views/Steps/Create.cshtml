@@ -1,0 +1,89 @@
+﻿@model App.Models.Step
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>
+    <strong>New Step</strong>
+</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Step</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StepName, "Step Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StepName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Any" } })
+                @Html.ValidationMessageFor(model => model.StepName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Image</label>
+            <div class="col-md-10">
+                <input type="file" class="form-control" id="Image" name="Image" />
+                <span class="text-danger error-txt"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StepsCount, "Steps", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StepsCount, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="text-danger error-txt"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Save" onclick="SaveData()" class="btn btn-primary" />
+                <a class="btn btn-danger" href="/Steps/Index">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+
+    function SaveData() {
+        var form = new FormData();
+        form.append("StepName", $("#StepName").val());
+        form.append("StepsCount", $("#StepsCount").val());
+        form.append("Image", $("#Image")[0].files[0]);
+        debugger
+
+        if (form.get('Image') == "undefined") {
+            $('#Image').parents('.form-group').find('.error-txt').text('Image is required');
+            return false;
+        }
+        if (form.get('StepsCount') == "" || form.get('StepsCount') == undefined) {
+            $('#StepsCount').parents('.form-group').find('.error-txt').text('Steps Count are required');
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Steps/Create",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                location.href = "/Steps/Index";
+            }
+        })
+    }
+</script>
